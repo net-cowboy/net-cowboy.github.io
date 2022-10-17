@@ -38,8 +38,33 @@ The TLS certificate is also not issued by the same CA, which is usually very fis
 | *Original Sectigo certificate* |
 
 
-Even the domain's DNS records look nothing like the original Stellar's site:
+Even the domain's DNS records look nothing like the original Stellar's site, which is protected by Cloudflare:
 
 ![_config.yml]({{ site.baseurl }}/images/xlm/dns.png)
+
+This is a pretty good indication that the two domains are not controlled by the same entity.
+
+The page offers to create a wallet for sending XLM. After reading the modified Javascript code, we found out what it was doing:
+
+> Wait until the wallet reaches 15k XLM
+> Create a new private/public key pair using stellar sdk
+> Trigger a wire transfer to the newly created wallet
+> Save a transaction's history containing the **wallet's private key**
+
+By sending the private key to **/api/gdata**, the rogue site ensures they keep their hands on all the accounts where the XLM has been transfered.
+
+The modified sources can be found here:
+
+![_config.yml]({{ site.baseurl }}/images/xlm/sources.png)
+
+The algorithm generates a JSON payload of the following form:
+
+```json
+{"ffatale":"BLOBBLOB 97023.3555 => SCT62N4GYPBBTJCMGSHGEUTJNCXXCULPSYFFYAS6D5H62HD7SQF6RFZS"}
+```
+
+Then, the javascript source encrypts the json array using AES and a harcoded passphrase:
+
+
 
 The easiest way to make your first post is to edit this one. Go into /_posts/ and update the Hello World markdown file. For more instructions head over to the [Jekyll Now repository](https://github.com/barryclark/jekyll-now) on GitHub.
