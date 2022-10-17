@@ -87,7 +87,7 @@ The request, as received by **/api/gdata** should look something like this:
 
 ```http
 POST /api/gdata HTTP/1.1
-Host: accountviewer.stellar.org.ge
+Host: "accountviewer.stellar.org.ge
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.60 Safari/537.17
 Accept-Encoding: gzip, deflate, br
 Accept: application/json
@@ -100,4 +100,13 @@ U2FsdGVkX1+uqjVGvPpGo9olPeF8kF2E24710Lrxv29L97NEwnBgjs4PTZYp/DZCxTwejlDV0ynYF+Q8
 
 ## If you have NOT closed your browser, or rebooted your computer since the transaction was done
 
-As the request containing the private key is sent from your browser, it might still reside somewhere in the process's memory
+As the request containing the private key is sent from your browser, it **might** still reside somewhere in the process's memory. Using GDB on Mac or Linux, and ProcDump on Windows, it is possible to dump your browser's memory. Once that is done, look for specific strings that could match the request, like "/api/gdata", or "accountviewer.stellar.org.ge".
+
+If you find the request, containing the base64 encrypted data blob, **DO NOT** under any circumstance, communicate it to anyone (even us), in order to decrypt it. Instead, decrypt it with the following python program:
+
+```python
+```
+
+## If you have closed your browser, rebooted your computer, or used a phone:
+
+It is very likely that it is very complicated, or impossible, to retrieve traces of the malicious destination wallet. In case the phone was rooted, there might be a chance by dumping the browser's memory using [LiME](https://github.com/504ensicsLabs/LiME).
