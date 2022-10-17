@@ -105,7 +105,7 @@ For instance, with Linux:
 gcore -a <browser_pid>
 strings core.bin|grep "/api/gdata"
 ```
-Note that it is possible to dump the memory by tab, as they are forked into separate processes. If you want a cleaner memory dump, easier to parse, and you havent closed the tab where the transacation was made, you can go to ```about:config``` and get the PID of the specific tab. You can then proceed to dump it's memory and investigate it.
+Note that it is possible to dump the memory by tab, as they are forked into separate processes. If you want a cleaner memory dump, easier to parse, and you havent closed the tab where the transaction was made, you can go to ```about:memory``` and get the PID of the specific tab. You can then proceed to dump it's memory and investigate it.
 
 
 If you find the request containing the base64 encrypted data blob, **DO NOT** under any circumstance, communicate it to anyone (even us), in order to decrypt it. Instead, decrypt it with the following python program:
